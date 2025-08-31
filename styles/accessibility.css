@@ -1,0 +1,523 @@
+/* MemoryPal - Accessibility Enhancements */
+
+/* Enhanced Focus Indicators */
+.enhanced-focus :focus {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.2);
+}
+
+.enhanced-focus .color-btn:focus {
+  outline: 4px solid var(--border-focus);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Keyboard Navigation Helpers */
+.keyboard-nav-active .nav-button:focus,
+.keyboard-nav-active .game-nav-btn:focus,
+.keyboard-nav-active .color-btn:focus,
+.keyboard-nav-active .control-btn:focus {
+  position: relative;
+  z-index: 10;
+}
+
+.keyboard-nav-active .nav-button:focus::after,
+.keyboard-nav-active .game-nav-btn:focus::after,
+.keyboard-nav-active .control-btn:focus::after {
+  content: "Press Enter to activate";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary);
+  color: var(--text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  z-index: 1000;
+  margin-top: var(--space-xs);
+}
+
+/* Screen Reader Enhancements */
+.sr-instructions {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* When focused, show instructions */
+.sr-instructions:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: var(--space-md);
+  margin: var(--space-md);
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: var(--primary);
+  color: var(--text-inverse);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
+/* High Contrast Enhancements */
+.high-contrast-active {
+  filter: contrast(150%);
+}
+
+.high-contrast-active .color-btn {
+  border: 3px solid var(--text-primary);
+}
+
+.high-contrast-active .color-btn:hover,
+.high-contrast-active .color-btn:focus {
+  border-width: 4px;
+  box-shadow: 0 0 0 4px var(--accent);
+}
+
+.high-contrast-active .color-btn.active {
+  border-width: 5px;
+  box-shadow: 0 0 0 6px var(--success);
+}
+
+/* Motion Sensitivity */
+.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.reduce-motion .color-btn.flash {
+  animation: none !important;
+  background-color: var(--accent) !important;
+}
+
+.reduce-motion .progress-fill {
+  transition: none !important;
+}
+
+/* Large Text Mode */
+.large-text {
+  --font-size-xs: 1rem;
+  --font-size-sm: 1.125rem;
+  --font-size-base: 1.5rem;
+  --font-size-lg: 1.75rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 2.5rem;
+  --font-size-3xl: 3rem;
+}
+
+.large-text .color-btn {
+  min-width: 120px;
+  min-height: 120px;
+}
+
+.large-text .nav-button,
+.large-text .control-btn,
+.large-text .footer-btn {
+  min-height: 60px;
+  padding: var(--space-lg) var(--space-xl);
+}
+
+/* Touch Target Enhancements */
+.touch-friendly .color-btn {
+  min-width: 80px;
+  min-height: 80px;
+  margin: var(--space-sm);
+}
+
+.touch-friendly .nav-button,
+.touch-friendly .control-btn,
+.touch-friendly .footer-btn {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+.touch-friendly .game-nav-btn {
+  min-height: 160px;
+  padding: var(--space-xl);
+}
+
+/* Voice Control Indicators */
+.voice-control-active [data-voice-command]::after {
+  content: "Say: " attr(data-voice-command);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary);
+  color: var(--text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
+}
+
+.voice-control-active [data-voice-command]:hover::after,
+.voice-control-active [data-voice-command]:focus::after {
+  opacity: 1;
+}
+
+/* Switch Control Support */
+.switch-control-active .focusable {
+  position: relative;
+}
+
+.switch-control-active .focusable:focus::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 4px dashed var(--primary);
+  border-radius: var(--radius-lg);
+  animation: switchPulse 2s infinite;
+}
+
+@keyframes switchPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Cognitive Load Reduction */
+.simple-mode .game-instructions {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+.simple-mode .game-instructions ol {
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.simple-mode .game-instructions li {
+  counter-increment: step-counter;
+  position: relative;
+  padding-left: 3rem;
+  margin-bottom: var(--space-lg);
+}
+
+.simple-mode .game-instructions li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--primary);
+  color: var(--text-inverse);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: var(--font-size-lg);
+}
+
+/* Error Prevention */
+.confirm-actions .destructive-action::before {
+  content: "⚠️ ";
+}
+
+.confirm-actions .destructive-action:hover::after {
+  content: "Click again to confirm";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--warning);
+  color: var(--text-inverse);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  margin-top: var(--space-xs);
+}
+
+/* Progress Indicators */
+.progress-enhanced .progress-bar::after {
+  content: attr(aria-valuenow) "% complete";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+}
+
+/* Status Announcements */
+.status-announcer {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Color Blind Support Enhancements */
+.colorblind-patterns .color-btn {
+  position: relative;
+  overflow: visible;
+}
+
+.colorblind-patterns .color-btn[data-color="red"] {
+  background-image: radial-gradient(
+    circle at 30% 30%,
+    transparent 20%,
+    currentColor 25%
+  );
+}
+
+.colorblind-patterns .color-btn[data-color="blue"] {
+  background-image: linear-gradient(
+    45deg,
+    transparent 40%,
+    currentColor 45%,
+    currentColor 55%,
+    transparent 60%
+  );
+}
+
+.colorblind-patterns .color-btn[data-color="green"] {
+  background-image: conic-gradient(
+    from 0deg,
+    transparent 120deg,
+    currentColor 135deg,
+    currentColor 225deg,
+    transparent 240deg
+  );
+}
+
+.colorblind-patterns .color-btn[data-color="yellow"] {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    currentColor 10px,
+    currentColor 20px
+  );
+}
+
+/* Dyslexia-Friendly Typography */
+.dyslexia-friendly {
+  font-family: "OpenDyslexic", "Comic Sans MS", cursive, sans-serif;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+  line-height: 1.8;
+}
+
+.dyslexia-friendly .game-instructions li {
+  margin-bottom: var(--space-lg);
+}
+
+.dyslexia-friendly p,
+.dyslexia-friendly li {
+  max-width: 60ch;
+}
+
+/* ADHD Support */
+.focus-mode .game-content {
+  border: 3px solid var(--primary);
+  box-shadow: 0 0 0 10px rgba(37, 99, 235, 0.1);
+}
+
+.focus-mode .distraction {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.focus-mode .main-action {
+  animation: gentlePulse 3s infinite;
+}
+
+@keyframes gentlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Memory Aid Enhancements */
+.memory-aids .sequence-item {
+  position: relative;
+}
+
+.memory-aids .sequence-item::after {
+  content: attr(data-sequence-number);
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: var(--text-primary);
+  color: var(--text-inverse);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+}
+
+/* Timeout Warnings */
+.timeout-warning {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--warning);
+  color: var(--text-inverse);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  font-weight: bold;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Text Scaling */
+@media (max-width: 768px) {
+  .mobile-text-scale {
+    --font-size-base: 1.25rem;
+    --font-size-lg: 1.375rem;
+    --font-size-xl: 1.625rem;
+  }
+
+  .mobile-text-scale .color-btn {
+    min-width: 70px;
+    min-height: 70px;
+  }
+
+  .mobile-text-scale .nav-button,
+  .mobile-text-scale .control-btn {
+    min-height: 52px;
+  }
+}
+
+/* Contrast Ratio Helpers */
+.contrast-checker::before {
+  content: "Contrast: " attr(data-contrast-ratio);
+  position: absolute;
+  top: -25px;
+  left: 0;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.contrast-checker:hover::before,
+.contrast-checker:focus::before {
+  opacity: 1;
+}
+
+/* Seizure Prevention */
+.seizure-safe * {
+  animation-duration: 1s !important;
+  animation-iteration-count: 1 !important;
+}
+
+.seizure-safe .flash,
+.seizure-safe .blink {
+  animation: none !important;
+}
+
+.seizure-safe .color-btn.active {
+  background-color: var(--primary) !important;
+  animation: none !important;
+}
+
+/* Vestibular Disorder Support */
+.vestibular-safe {
+  scroll-behavior: auto !important;
+}
+
+.vestibular-safe * {
+  transform: none !important;
+  animation: none !important;
+  transition: opacity var(--transition-fast),
+    background-color var(--transition-fast), color var(--transition-fast) !important;
+}
+
+.vestibular-safe .parallax,
+.vestibular-safe .zoom,
+.vestibular-safe .rotate {
+  transform: none !important;
+}
+
+/* Assistive Technology Enhancements */
+.at-enhanced [role="button"]:not(button) {
+  cursor: pointer;
+  user-select: none;
+}
+
+.at-enhanced [role="button"]:not(button):focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.at-enhanced [aria-pressed="true"] {
+  background-color: var(--primary);
+  color: var(--text-inverse);
+}
+
+.at-enhanced [aria-expanded="true"] {
+  background-color: var(--surface);
+}
+
+/* Custom Scrollbars for Accessibility */
+.accessible-scrollbar::-webkit-scrollbar {
+  width: 16px;
+}
+
+.accessible-scrollbar::-webkit-scrollbar-track {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+}
+
+.accessible-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--surface);
+}
+
+.accessible-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Firefox scrollbar */
+.accessible-scrollbar {
+  scrollbar-width: thick;
+  scrollbar-color: var(--border) var(--surface);
+}

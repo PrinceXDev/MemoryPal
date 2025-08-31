@@ -1,0 +1,357 @@
+/* MemoryPal - Theme System */
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --secondary: #10b981;
+  --secondary-hover: #059669;
+  --accent: #ef4444;
+  --accent-hover: #dc2626;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  --background: #0f172a;
+  --surface: #1e293b;
+  --surface-elevated: #334155;
+  --border: #475569;
+  --border-focus: var(--primary);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+
+  --game-red: #f87171;
+  --game-blue: #60a5fa;
+  --game-green: #4ade80;
+  --game-yellow: #fbbf24;
+}
+
+/* High Contrast Theme */
+[data-theme="high-contrast"] {
+  --primary: #000000;
+  --primary-hover: #333333;
+  --secondary: #ffffff;
+  --secondary-hover: #f0f0f0;
+  --accent: #ffff00;
+  --accent-hover: #cccc00;
+  --success: #00ff00;
+  --warning: #ff8800;
+  --error: #ff0000;
+
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --border: #000000;
+  --border-focus: #0000ff;
+
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --text-muted: #333333;
+  --text-inverse: #ffffff;
+
+  --game-red: #ff0000;
+  --game-blue: #0000ff;
+  --game-green: #00ff00;
+  --game-yellow: #ffff00;
+
+  /* High contrast specific overrides */
+  --shadow-sm: 0 2px 4px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 8px 0 rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 8px 16px 0 rgb(0 0 0 / 0.5);
+}
+
+/* Dark High Contrast Theme */
+[data-theme="dark-high-contrast"] {
+  --primary: #ffffff;
+  --primary-hover: #cccccc;
+  --secondary: #000000;
+  --secondary-hover: #333333;
+  --accent: #ffff00;
+  --accent-hover: #cccc00;
+  --success: #00ff00;
+  --warning: #ff8800;
+  --error: #ff0000;
+
+  --background: #000000;
+  --surface: #000000;
+  --surface-elevated: #000000;
+  --border: #ffffff;
+  --border-focus: #00ffff;
+
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-muted: #cccccc;
+  --text-inverse: #000000;
+
+  --game-red: #ff6666;
+  --game-blue: #6666ff;
+  --game-green: #66ff66;
+  --game-yellow: #ffff66;
+}
+
+/* Font Size Scaling */
+[data-font-scale="110"] {
+  --font-size-xs: 0.825rem;
+  --font-size-sm: 0.9625rem;
+  --font-size-base: 1.2375rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: 1.65rem;
+  --font-size-2xl: 2.2rem;
+  --font-size-3xl: 2.75rem;
+}
+
+[data-font-scale="125"] {
+  --font-size-xs: 0.9375rem;
+  --font-size-sm: 1.09375rem;
+  --font-size-base: 1.40625rem;
+  --font-size-lg: 1.5625rem;
+  --font-size-xl: 1.875rem;
+  --font-size-2xl: 2.5rem;
+  --font-size-3xl: 3.125rem;
+}
+
+[data-font-scale="150"] {
+  --font-size-xs: 1.125rem;
+  --font-size-sm: 1.3125rem;
+  --font-size-base: 1.6875rem;
+  --font-size-lg: 1.875rem;
+  --font-size-xl: 2.25rem;
+  --font-size-2xl: 3rem;
+  --font-size-3xl: 3.75rem;
+}
+
+[data-font-scale="175"] {
+  --font-size-xs: 1.3125rem;
+  --font-size-sm: 1.53125rem;
+  --font-size-base: 1.96875rem;
+  --font-size-lg: 2.1875rem;
+  --font-size-xl: 2.625rem;
+  --font-size-2xl: 3.5rem;
+  --font-size-3xl: 4.375rem;
+}
+
+[data-font-scale="200"] {
+  --font-size-xs: 1.5rem;
+  --font-size-sm: 1.75rem;
+  --font-size-base: 2.25rem;
+  --font-size-lg: 2.5rem;
+  --font-size-xl: 3rem;
+  --font-size-2xl: 4rem;
+  --font-size-3xl: 5rem;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .loading-spinner {
+    animation: none;
+    border-top-color: var(--primary);
+  }
+}
+
+[data-reduce-motion="true"] {
+  --transition-fast: 0ms;
+  --transition-normal: 0ms;
+  --transition-slow: 0ms;
+}
+
+[data-reduce-motion="true"] *,
+[data-reduce-motion="true"] *::before,
+[data-reduce-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+[data-reduce-motion="true"] .loading-spinner {
+  animation: none;
+  border-top-color: var(--primary);
+}
+
+[data-reduce-motion="true"] .game-nav-btn:hover {
+  transform: none;
+}
+
+[data-reduce-motion="true"] .start-game-btn:hover {
+  transform: none;
+}
+
+/* Color Blind Friendly Patterns */
+[data-colorblind-support="true"] .color-btn::after {
+  content: attr(data-pattern);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-2xl);
+  font-weight: bold;
+  color: var(--text-inverse);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+[data-colorblind-support="true"] .color-btn[data-color="red"]::after {
+  content: "●";
+}
+
+[data-colorblind-support="true"] .color-btn[data-color="blue"]::after {
+  content: "■";
+}
+
+[data-colorblind-support="true"] .color-btn[data-color="green"]::after {
+  content: "▲";
+}
+
+[data-colorblind-support="true"] .color-btn[data-color="yellow"]::after {
+  content: "♦";
+}
+
+/* Focus Enhancement for High Contrast */
+[data-theme="high-contrast"] :focus,
+[data-theme="dark-high-contrast"] :focus {
+  outline: 4px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+[data-theme="high-contrast"] .nav-button:focus,
+[data-theme="dark-high-contrast"] .nav-button:focus {
+  outline: 4px solid var(--border-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 8px rgba(0, 0, 255, 0.3);
+}
+
+/* Enhanced Button States for Accessibility */
+[data-theme="high-contrast"] .game-nav-btn,
+[data-theme="dark-high-contrast"] .game-nav-btn {
+  border-width: 3px;
+}
+
+[data-theme="high-contrast"] .game-nav-btn:hover,
+[data-theme="dark-high-contrast"] .game-nav-btn:hover {
+  border-width: 4px;
+  box-shadow: 0 0 0 4px var(--accent);
+}
+
+[data-theme="high-contrast"] .game-nav-btn.active,
+[data-theme="dark-high-contrast"] .game-nav-btn.active {
+  border-width: 4px;
+  box-shadow: 0 0 0 4px var(--success);
+}
+
+/* Print Styles */
+@media print {
+  .header,
+  .footer,
+  .modal,
+  .loading {
+    display: none !important;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .game-content {
+    box-shadow: none;
+    border: 2px solid #000;
+  }
+
+  * {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* System Theme Detection */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --secondary: #10b981;
+    --secondary-hover: #059669;
+    --accent: #ef4444;
+    --accent-hover: #dc2626;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-elevated: #334155;
+    --border: #475569;
+    --border-focus: var(--primary);
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-inverse: #0f172a;
+
+    --game-red: #f87171;
+    --game-blue: #60a5fa;
+    --game-green: #4ade80;
+    --game-yellow: #fbbf24;
+  }
+}
+
+/* High Contrast Media Query */
+@media (prefers-contrast: high) {
+  :root:not([data-theme]) {
+    --border: #000000;
+    --shadow-sm: 0 2px 4px 0 rgb(0 0 0 / 0.5);
+    --shadow-md: 0 4px 8px 0 rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 8px 16px 0 rgb(0 0 0 / 0.5);
+  }
+
+  :focus {
+    outline: 3px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+}
+
+/* Forced Colors Mode (Windows High Contrast) */
+@media (forced-colors: active) {
+  .game-nav-btn {
+    forced-color-adjust: none;
+    border: 2px solid ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .game-nav-btn:hover,
+  .game-nav-btn:focus {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .game-nav-btn.active {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .start-game-btn {
+    forced-color-adjust: none;
+    border: 2px solid ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .start-game-btn:hover,
+  .start-game-btn:focus {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+}

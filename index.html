@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MemoryPal - Accessible memory training games for cognitive improvement"
+    />
+    <meta name="theme-color" content="#2563eb" />
+    <title>MemoryPal - Accessible Memory Training</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/themes.css" />
+    <link rel="stylesheet" href="styles/accessibility.css" />
+    <link rel="stylesheet" href="styles/games.css" />
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/sounds/success.mp3" as="audio" />
+    <link rel="preload" href="assets/sounds/error.mp3" as="audio" />
+  </head>
+  <body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header with Logo, Settings, and Profile -->
+    <header class="header" role="banner">
+      <div class="header-container">
+        <div class="logo-section">
+          <h1 class="logo">
+            <span class="logo-icon" aria-hidden="true">🧠</span>
+            MemoryPal
+          </h1>
+        </div>
+
+        <nav class="header-nav" role="navigation" aria-label="Main navigation">
+          <button
+            class="nav-button"
+            id="settings-btn"
+            aria-expanded="false"
+            aria-controls="settings-menu"
+          >
+            <span class="button-icon" aria-hidden="true">⚙️</span>
+            Settings
+          </button>
+          <button
+            class="nav-button"
+            id="profile-btn"
+            aria-expanded="false"
+            aria-controls="profile-menu"
+          >
+            <span class="button-icon" aria-hidden="true">👤</span>
+            Profile
+          </button>
+        </nav>
+      </div>
+
+      <!-- Settings Menu -->
+      <div
+        class="dropdown-menu"
+        id="settings-menu"
+        role="menu"
+        aria-labelledby="settings-btn"
+        hidden
+      >
+        <div class="menu-section">
+          <h3>Accessibility</h3>
+          <label class="setting-item">
+            <input
+              type="checkbox"
+              id="high-contrast"
+              role="switch"
+              aria-describedby="high-contrast-desc"
+            />
+            <span>High Contrast Mode</span>
+            <small id="high-contrast-desc"
+              >Increases color contrast for better visibility</small
+            >
+          </label>
+          <label class="setting-item">
+            <input
+              type="range"
+              id="font-size"
+              min="100"
+              max="200"
+              value="100"
+              aria-describedby="font-size-desc"
+            />
+            <span>Font Size: <span id="font-size-value">100%</span></span>
+            <small id="font-size-desc"
+              >Adjust text size for better readability</small
+            >
+          </label>
+          <label class="setting-item">
+            <input
+              type="checkbox"
+              id="reduce-motion"
+              role="switch"
+              aria-describedby="motion-desc"
+            />
+            <span>Reduce Motion</span>
+            <small id="motion-desc">Minimizes animations and transitions</small>
+          </label>
+          <label class="setting-item">
+            <input
+              type="checkbox"
+              id="audio-cues"
+              role="switch"
+              aria-describedby="audio-desc"
+              checked
+            />
+            <span>Audio Cues</span>
+            <small id="audio-desc">Play sounds for game feedback</small>
+          </label>
+        </div>
+        <div class="menu-section">
+          <h3>Game Settings</h3>
+          <label class="setting-item">
+            <select id="difficulty" aria-describedby="difficulty-desc">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+              <option value="adaptive">Adaptive</option>
+            </select>
+            <span>Difficulty Level</span>
+            <small id="difficulty-desc"
+              >Choose your preferred challenge level</small
+            >
+          </label>
+          <label class="setting-item">
+            <input
+              type="range"
+              id="game-speed"
+              min="1"
+              max="5"
+              value="3"
+              aria-describedby="speed-desc"
+            />
+            <span>Game Speed: <span id="speed-value">Normal</span></span>
+            <small id="speed-desc">Adjust how fast games progress</small>
+          </label>
+        </div>
+      </div>
+
+      <!-- Profile Menu -->
+      <div
+        class="dropdown-menu"
+        id="profile-menu"
+        role="menu"
+        aria-labelledby="profile-btn"
+        hidden
+      >
+        <div class="profile-stats">
+          <h3>Your Progress</h3>
+          <div class="stat-item">
+            <span class="stat-label">Games Played:</span>
+            <span class="stat-value" id="games-played">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Best Streak:</span>
+            <span class="stat-value" id="best-streak">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Total Score:</span>
+            <span class="stat-value" id="total-score">0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Navigation for Games -->
+    <nav class="main-nav" role="navigation" aria-label="Game selection">
+      <div class="nav-container">
+        <h2 class="nav-title">Choose Your Memory Challenge</h2>
+        <div class="game-buttons">
+          <button
+            class="game-nav-btn active"
+            data-game="sequence"
+            aria-pressed="true"
+          >
+            <span class="game-icon" aria-hidden="true">🔢</span>
+            <span class="game-title">Sequence Memory</span>
+            <span class="game-desc">Remember and repeat color sequences</span>
+          </button>
+          <button
+            class="game-nav-btn"
+            data-game="matching"
+            aria-pressed="false"
+          >
+            <span class="game-icon" aria-hidden="true">🃏</span>
+            <span class="game-title">Card Matching</span>
+            <span class="game-desc">Find pairs of matching cards</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Game Area -->
+    <main id="main-content" class="main-content" role="main">
+      <div class="game-container">
+        <!-- Game Header with Progress and Encouragement -->
+        <div class="game-header">
+          <div class="progress-section">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              aria-valuenow="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-label="Game progress"
+            >
+              <div class="progress-fill"></div>
+            </div>
+            <div class="level-info">
+              <span class="level-text"
+                >Level <span id="current-level">1</span></span
+              >
+              <span class="score-text"
+                >Score: <span id="current-score">0</span></span
+              >
+            </div>
+          </div>
+          <div class="encouragement-section">
+            <p id="encouragement-text" class="encouragement" aria-live="polite">
+              Ready to train your memory? Let's start with something easy!
+            </p>
+          </div>
+        </div>
+
+        <!-- Game Area - Dynamic content based on selected game -->
+        <div class="game-area" id="game-area">
+          <!-- Sequence Memory Game (Default) -->
+          <div
+            class="game-content"
+            id="sequence-game"
+            role="application"
+            aria-label="Sequence Memory Game"
+          >
+            <div class="game-instructions">
+              <h3>How to Play</h3>
+              <ol>
+                <li>Watch the sequence of colors light up</li>
+                <li>Remember the order</li>
+                <li>Click the colors in the same sequence</li>
+                <li>Each level adds one more color!</li>
+              </ol>
+              <button class="start-game-btn" id="start-sequence">
+                <span class="button-icon" aria-hidden="true">▶️</span>
+                Start Game
+              </button>
+            </div>
+
+            <div class="sequence-board" id="sequence-board" hidden>
+              <div class="sequence-controls">
+                <button
+                  class="control-btn"
+                  id="replay-sequence"
+                  aria-describedby="replay-desc"
+                >
+                  <span class="button-icon" aria-hidden="true">🔄</span>
+                  Replay Sequence
+                </button>
+                <div id="replay-desc" class="sr-only">
+                  Replay the current sequence to help you remember
+                </div>
+
+                <button
+                  class="control-btn"
+                  id="pause-game"
+                  aria-describedby="pause-desc"
+                >
+                  <span class="button-icon" aria-hidden="true">⏸️</span>
+                  Pause
+                </button>
+                <div id="pause-desc" class="sr-only">
+                  Pause the game to take a break
+                </div>
+              </div>
+
+              <div
+                class="color-grid"
+                role="grid"
+                aria-label="Color sequence buttons"
+              >
+                <button
+                  class="color-btn"
+                  data-color="red"
+                  data-sound="C4"
+                  aria-label="Red button - plays C note"
+                >
+                  <span class="color-name">Red</span>
+                </button>
+                <button
+                  class="color-btn"
+                  data-color="blue"
+                  data-sound="D4"
+                  aria-label="Blue button - plays D note"
+                >
+                  <span class="color-name">Blue</span>
+                </button>
+                <button
+                  class="color-btn"
+                  data-color="green"
+                  data-sound="E4"
+                  aria-label="Green button - plays E note"
+                >
+                  <span class="color-name">Green</span>
+                </button>
+                <button
+                  class="color-btn"
+                  data-color="yellow"
+                  data-sound="F4"
+                  aria-label="Yellow button - plays F note"
+                >
+                  <span class="color-name">Yellow</span>
+                </button>
+              </div>
+
+              <div
+                class="sequence-feedback"
+                aria-live="assertive"
+                id="sequence-feedback"
+              >
+                <!-- Dynamic feedback messages -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Matching Game -->
+          <div
+            class="game-content"
+            id="matching-game"
+            role="application"
+            aria-label="Card Matching Game"
+            hidden
+          >
+            <div class="game-instructions">
+              <h3>How to Play</h3>
+              <ol>
+                <li>Click on cards to flip them over</li>
+                <li>Find two cards that match</li>
+                <li>Match all pairs to complete the level</li>
+                <li>Try to do it in as few moves as possible!</li>
+              </ol>
+              <button class="start-game-btn" id="start-matching">
+                <span class="button-icon" aria-hidden="true">▶️</span>
+                Start Game
+              </button>
+            </div>
+
+            <div class="matching-board" id="matching-board" hidden>
+              <div class="matching-controls">
+                <div class="game-stats">
+                  <span>Moves: <span id="move-count">0</span></span>
+                  <span
+                    >Pairs Found: <span id="pairs-found">0</span> /
+                    <span id="total-pairs">8</span></span
+                  >
+                </div>
+                <button class="control-btn" id="restart-matching">
+                  <span class="button-icon" aria-hidden="true">🔄</span>
+                  Restart
+                </button>
+              </div>
+
+              <div
+                class="card-grid"
+                id="card-grid"
+                role="grid"
+                aria-label="Memory card grid"
+              >
+                <!-- Dynamic card content -->
+              </div>
+
+              <div
+                class="matching-feedback"
+                aria-live="assertive"
+                id="matching-feedback"
+              >
+                <!-- Dynamic feedback messages -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer with Help, About, and Feedback -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-container">
+        <button class="footer-btn" id="help-btn">
+          <span class="button-icon" aria-hidden="true">❓</span>
+          Help
+        </button>
+        <button class="footer-btn" id="about-btn">
+          <span class="button-icon" aria-hidden="true">ℹ️</span>
+          About
+        </button>
+        <button class="footer-btn" id="feedback-btn">
+          <span class="button-icon" aria-hidden="true">💬</span>
+          Feedback
+        </button>
+      </div>
+    </footer>
+
+    <!-- Modal for Help/About/Feedback -->
+    <div
+      class="modal"
+      id="info-modal"
+      role="dialog"
+      aria-labelledby="modal-title"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-title">Help</h2>
+          <button class="modal-close" aria-label="Close dialog">
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <!-- Dynamic content -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading indicator -->
+    <div class="loading" id="loading" aria-hidden="true">
+      <div class="loading-spinner" role="status" aria-label="Loading game...">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/accessibility.js"></script>
+    <script src="scripts/audio.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/games/sequence.js"></script>
+    <script src="scripts/games/matching.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
